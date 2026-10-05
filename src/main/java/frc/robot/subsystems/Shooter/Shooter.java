@@ -6,6 +6,7 @@ import com.ctre.phoenix6.controls.StrictFollower;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -42,6 +43,7 @@ public class Shooter extends SubsystemBase {
     masterConfig = new TalonFXConfiguration();
     masterConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
     masterConfig.Feedback.SensorToMechanismRatio = ShooterConstants.MOTOR_1_GEAR;
+    masterConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
     masterConfig.CurrentLimits.StatorCurrentLimit = ShooterConstants.STATOR_CURRENT_LIMIT;
     masterConfig.CurrentLimits.StatorCurrentLimitEnable = true;
@@ -53,6 +55,7 @@ public class Shooter extends SubsystemBase {
     slaveConfig = new TalonFXConfiguration();
     slaveConfig.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
     slaveConfig.Feedback.SensorToMechanismRatio = ShooterConstants.MOTOR_2_GEAR;
+    slaveConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
 
     slaveConfig.CurrentLimits.StatorCurrentLimit = ShooterConstants.STATOR_CURRENT_LIMIT;
     slaveConfig.CurrentLimits.StatorCurrentLimitEnable = true;
