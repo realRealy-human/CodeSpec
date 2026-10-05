@@ -3,7 +3,6 @@ package frc.robot.subsystems.Hood;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.PositionVoltage;
-import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
@@ -11,11 +10,8 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.units.measure.Angle;
-import edu.wpi.first.units.measure.AngularVelocity;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.PortMap;
-import frc.robot.subsystems.Shooter.ShooterConstants;
 
 public class Hood extends SubsystemBase {
   private final TalonFX motor1;
@@ -48,7 +44,7 @@ public class Hood extends SubsystemBase {
     motor1Config.CurrentLimits.StatorCurrentLimit = HoodConstants.STATOR_CURRENT_LIMIT;
     motor1Config.CurrentLimits.StatorCurrentLimitEnable = true;
 
-    motor1Config.Slot0.kP = ShooterConstants.KP;
+    motor1Config.Slot0.kP = HoodConstants.KP;
 
     motor1Config.Feedback.FeedbackSensorSource = FeedbackSensorSourceValue.RemoteCANcoder;
     motor1Config.Feedback.FeedbackRemoteSensorID = cANcoder.getDeviceID();
