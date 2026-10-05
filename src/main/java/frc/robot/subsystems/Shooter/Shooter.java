@@ -3,6 +3,7 @@ package frc.robot.subsystems.Shooter;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.StrictFollower;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 
@@ -14,11 +15,12 @@ public class Shooter extends SubsystemBase {
   private final TalonFX master;
   private final TalonFX slave;
   
-  private final StatusSignal<AngularVelocity> masterSpeed;
-  private final StatusSignal<AngularVelocity> slaveSpeed;
+  private final StatusSignal<AngularVelocity> velocity;
 
   private TalonFXConfiguration masterConfig;
   private TalonFXConfiguration slaveConfig;
+
+  private final VelocityVoltage control;
 
   private final StrictFollower motorFollower;
   
@@ -26,12 +28,14 @@ public class Shooter extends SubsystemBase {
     master = new TalonFX(PortMap.Shooter.MASTER);
     slave = new TalonFX(PortMap.Shooter.SLAVE);
 
-    masterSpeed = master.getVelocity();
-    slaveSpeed = slave.getVelocity();
+    velocity = master.getVelocity();
 
     config();
 
+    control = new VelocityVoltage(0);
+
     motorFollower = new StrictFollower(master.getDeviceID());
+    slave.setControl(motorFollower);
   }
 
   private void config() {
@@ -58,21 +62,17 @@ public class Shooter extends SubsystemBase {
     slave.getConfigurator().apply(slaveConfig);
   }
 
-  public void setMotorsVoltage(double voltage) {
-    master.setVoltage(voltage);
-    slave.setControl(motorFollower);
+  public void setTargerVelocity(double velocity) {
+    master.setControl(control.withVelocity(velocity * 60).withSlot(0));
   }
 
-  public double getmasterSpeed() {
-    return masterSpeed.getValueAsDouble() * 60;
-  }
-  public double getslaveSpeed() {
-    return slaveSpeed.getValueAsDouble() * 60;
+  public double getVelocity() {
+    return velocity.getValueAsDouble() * 60;
   }
 
   @Override
   public void periodic() {
-    StatusSignal.refreshAll(masterSpeed, slaveSpeed);
+    StatusSignal.refreshAll(velocity);
   }
 
   private static Shooter shooter;
