@@ -62,7 +62,7 @@ public class Shooter extends SubsystemBase {
     slave.getConfigurator().apply(slaveConfig);
   }
 
-  public void setTargerVelocity(double velocity) {
+  public void setTargetVelocity(double velocity) {
     master.setControl(control.withVelocity(velocity * 60).withSlot(0));
   }
 
