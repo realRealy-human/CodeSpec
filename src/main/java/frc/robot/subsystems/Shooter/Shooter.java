@@ -47,6 +47,8 @@ public class Shooter extends SubsystemBase {
 
     masterConfig.CurrentLimits.StatorCurrentLimit = ShooterConstants.STATOR_CURRENT_LIMIT;
     masterConfig.CurrentLimits.StatorCurrentLimitEnable = true;
+    masterConfig.TorqueCurrent.PeakForwardTorqueCurrent = ShooterConstants.PICK_CURRENT_LIMIT;
+    masterConfig.TorqueCurrent.PeakReverseTorqueCurrent = ShooterConstants.PICK_CURRENT_LIMIT;
 
     masterConfig.Slot0.kP = ShooterConstants.KP;
 

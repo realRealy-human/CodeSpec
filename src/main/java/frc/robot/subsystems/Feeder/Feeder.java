@@ -32,6 +32,8 @@ public class Feeder extends SubsystemBase {
 
     motor1Config.CurrentLimits.StatorCurrentLimit = FeederConstants.STATOR_CURRENT_LIMIT;
     motor1Config.CurrentLimits.StatorCurrentLimitEnable = true;
+    motor1Config.TorqueCurrent.PeakForwardTorqueCurrent = FeederConstants.PICK_CURRENT_LIMIT;
+    motor1Config.TorqueCurrent.PeakReverseTorqueCurrent = FeederConstants.PICK_CURRENT_LIMIT;
 
     motor1.getConfigurator().apply(motor1Config);
   }

@@ -43,6 +43,8 @@ public class Hood extends SubsystemBase {
 
     motor1Config.CurrentLimits.StatorCurrentLimit = HoodConstants.STATOR_CURRENT_LIMIT;
     motor1Config.CurrentLimits.StatorCurrentLimitEnable = true;
+    motor1Config.TorqueCurrent.PeakForwardTorqueCurrent = HoodConstants.PICK_CURRENT_LIMIT;
+    motor1Config.TorqueCurrent.PeakReverseTorqueCurrent = HoodConstants.PICK_CURRENT_LIMIT;
 
     motor1Config.Slot0.kP = HoodConstants.KP;
 
