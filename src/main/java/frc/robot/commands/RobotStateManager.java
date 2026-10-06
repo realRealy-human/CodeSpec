@@ -19,7 +19,18 @@ public class RobotStateManager extends InstantCommand {
 
   public RobotStateManager(RobotState robotState) {
     RobotStateManager.robotState = robotState;
+
+    setStates(robotState);
+
     // Use addRequirements() here to declare subsystem dependencies.
+  }
+
+  private void setStates(RobotState robotState) {
+    switch (robotState) {
+      case IDLE:
+        
+        break;
+    }
   }
 
   @Override

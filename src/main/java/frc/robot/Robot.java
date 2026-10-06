@@ -7,6 +7,15 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.FeederCommand;
+import frc.robot.commands.HoodCommand;
+import frc.robot.commands.ShooterCommand;
+import frc.robot.subsystems.Feeder.Feeder;
+import frc.robot.subsystems.Feeder.FeederState;
+import frc.robot.subsystems.Hood.Hood;
+import frc.robot.subsystems.Hood.HoodState;
+import frc.robot.subsystems.Shooter.Shooter;
+import frc.robot.subsystems.Shooter.ShooterState;
 
 /**
  * The methods in this class are called automatically corresponding to each mode, as described in
@@ -26,6 +35,10 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+    CommandScheduler.getInstance().setDefaultCommand(Feeder.getInstance(), new FeederCommand(FeederState.IDLE));
+    CommandScheduler.getInstance().setDefaultCommand(Hood.getInstance(), new HoodCommand(HoodState.IDLE));
+    CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new ShooterCommand(ShooterState.IDLE));
   }
 
   /**
