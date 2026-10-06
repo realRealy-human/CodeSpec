@@ -1,11 +1,17 @@
 package frc.robot.commands;
 
+import java.util.function.BooleanSupplier;
+
 import frc.robot.subsystems.Feeder.Feeder;
 import frc.robot.subsystems.Feeder.FeederConstants;
 import frc.robot.subsystems.Feeder.FeederState;
 
 public class FeederCommand extends CommandTemplate<FeederState> {
     private Feeder feeder;
+
+    protected BooleanSupplier canMove = () -> 
+        !(isSubsystemState(FeederState.SHOOT) && !ShooterCommand.getInstance(null).isReady())
+    ;
 
     /** Creates a new CommandTemplate. 
      * <p>Use addRequirements() here to declare subsystem dependencies.</p> 
@@ -20,7 +26,7 @@ public class FeederCommand extends CommandTemplate<FeederState> {
     }
 
     @Override
-    public void execute() {
+    public void switchState() {
         switch (state) {
             case IDLE:
                 feeder.setMotorVoltage(0);
@@ -35,6 +41,10 @@ public class FeederCommand extends CommandTemplate<FeederState> {
                 feeder.setMotorVoltage(FeederConstants.FORWARD_VOLTAGE);
                 break;
         }
+    }
+    @Override
+    protected void cannotMove() {
+        feeder.setMotorVoltage(0);
     }
 
     @Override

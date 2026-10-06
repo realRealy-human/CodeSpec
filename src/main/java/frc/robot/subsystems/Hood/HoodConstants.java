@@ -11,4 +11,7 @@ public class HoodConstants {
 
     public static final double SHOOTING_ANGLE = 30;
     public static final double EJECT_ANGLE = 30;
+
+    public static final double START_ANGLE = 0;
+    public static final double END_ANGLE = 40;
 }

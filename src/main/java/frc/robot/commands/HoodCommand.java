@@ -1,11 +1,24 @@
 package frc.robot.commands;
 
+import java.util.function.BooleanSupplier;
+
 import frc.robot.subsystems.Hood.Hood;
 import frc.robot.subsystems.Hood.HoodConstants;
 import frc.robot.subsystems.Hood.HoodState;
 
 public class HoodCommand extends CommandTemplate<HoodState> {
     private Hood hood;
+
+    protected BooleanSupplier canMove = () -> isBodyOpen() && isHoodInRange();
+
+    private boolean isBodyOpen() {
+        return true; // coding this was not required for the project
+    }
+
+    private boolean isHoodInRange() {
+        return hood.getCANcoderPos() >= HoodConstants.START_ANGLE && 
+            hood.getCANcoderPos() <= HoodConstants.END_ANGLE;
+    }
 
     /** Creates a new CommandTemplate. 
      * <p>Use addRequirements() here to declare subsystem dependencies.</p> 
@@ -20,7 +33,7 @@ public class HoodCommand extends CommandTemplate<HoodState> {
     }
 
     @Override
-    public void execute() {
+    public void switchState() {
         switch (state) {
             case IDLE:
                 hood.setTargetAngle(0);
@@ -32,6 +45,10 @@ public class HoodCommand extends CommandTemplate<HoodState> {
                 hood.setTargetAngle(HoodConstants.EJECT_ANGLE);
                 break;
         }
+    }
+    @Override
+    protected void cannotMove() {
+        
     }
 
     @Override

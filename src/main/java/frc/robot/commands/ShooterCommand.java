@@ -1,11 +1,24 @@
 package frc.robot.commands;
 
+import java.util.function.BooleanSupplier;
+
 import frc.robot.subsystems.Shooter.Shooter;
 import frc.robot.subsystems.Shooter.ShooterConstants;
 import frc.robot.subsystems.Shooter.ShooterState;
 
 public class ShooterCommand extends CommandTemplate<ShooterState> {
     private Shooter shooter;
+
+    protected BooleanSupplier canMove = () -> 
+        !(isSubsystemState(ShooterState.SHOOT) && (!isInAllinceZone() || !isShiftActive()))
+    ;
+
+    private boolean isInAllinceZone() {
+        return true; // coding this was not required for the project
+    }
+    private boolean isShiftActive() {
+        return false; // same as isInAllinceZone()
+    }
 
     /** Creates a new CommandTemplate. 
      * <p>Use addRequirements() here to declare subsystem dependencies.</p> 
@@ -14,13 +27,17 @@ public class ShooterCommand extends CommandTemplate<ShooterState> {
         super(state);
         shooter = Shooter.getInstance();
     }
+
+    public boolean isReady() {
+        return Math.abs(shooter.getVelocity() - ShooterConstants.SHOOTING_VELOCITY) < ShooterConstants.VELOCITY_TOLERANCE;
+    }
     
     @Override
     public void initialize() {
     }
 
     @Override
-    public void execute() {
+    public void switchState() {
         switch (state) {
             case IDLE:
                 shooter.stopMotors();
@@ -32,6 +49,10 @@ public class ShooterCommand extends CommandTemplate<ShooterState> {
                 shooter.setTargetVelocity(ShooterConstants.EJECT_VELOCITY);
                 break;
         }
+    }
+    @Override
+    protected void cannotMove() {
+        shooter.stopMotors();
     }
 
     @Override
