@@ -70,6 +70,9 @@ public class Shooter extends SubsystemBase {
   public void setTargetVelocity(double velocity) {
     master.setControl(control.withVelocity(velocity * 60).withSlot(0));
   }
+  public void stopMotors() {
+    master.stopMotor();
+  }
 
   public double getVelocity() {
     return velocity.getValueAsDouble() * 60;

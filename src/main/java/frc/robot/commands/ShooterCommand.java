@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import frc.robot.subsystems.Shooter.Shooter;
+import frc.robot.subsystems.Shooter.ShooterConstants;
 import frc.robot.subsystems.Shooter.ShooterState;
 
 public class ShooterCommand extends CommandTemplate<ShooterState> {
@@ -21,11 +22,14 @@ public class ShooterCommand extends CommandTemplate<ShooterState> {
     @Override
     public void execute() {
         switch (state) {
-            case EJECT:
-                break;
             case IDLE:
+                shooter.stopMotors();
                 break;
             case SHOOT:
+                shooter.setTargetVelocity(ShooterConstants.SHOOTING_VELOCITY);
+                break;
+            case EJECT:
+                shooter.setTargetVelocity(ShooterConstants.EJECT_VELOCITY);
                 break;
         }
     }
