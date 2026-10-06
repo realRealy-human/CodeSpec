@@ -2,13 +2,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
+@SuppressWarnings("rawtypes")
 public abstract class CommandTemplate<State extends Enum> extends Command {
   protected State state;
 
   /** Creates a new CommandTemplate. 
    * <p>Use addRequirements() here to declare subsystem dependencies.</p> 
    * @param state The default state. (eg. IDLE) */
-  public CommandTemplate(State state) {
+  protected CommandTemplate(State state) {
     this.state = state;
   }
 

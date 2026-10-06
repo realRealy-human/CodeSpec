@@ -1,13 +1,17 @@
 package frc.robot.commands;
 
+import frc.robot.subsystems.Shooter.Shooter;
 import frc.robot.subsystems.Shooter.ShooterState;
 
 public class ShooterCommand extends CommandTemplate<ShooterState> {
+    private Shooter shooter;
+
     /** Creates a new CommandTemplate. 
      * <p>Use addRequirements() here to declare subsystem dependencies.</p> 
      * @param state The default state. (eg. IDLE) */
-    public ShooterCommand(ShooterState state) {
+    private ShooterCommand(ShooterState state) {
         super(state);
+        shooter = Shooter.getInstance();
     }
     
     @Override
@@ -33,5 +37,13 @@ public class ShooterCommand extends CommandTemplate<ShooterState> {
     @Override
     public boolean isFinished() {
         return false;
+    }
+
+    private static ShooterCommand instance;
+    public static ShooterCommand getInstance(ShooterState state) {
+        if (instance == null) {
+            instance = new ShooterCommand(state);
+        }
+        return instance;
     }
 }

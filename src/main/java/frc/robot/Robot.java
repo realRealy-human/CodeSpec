@@ -36,9 +36,9 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
-    CommandScheduler.getInstance().setDefaultCommand(Feeder.getInstance(), new FeederCommand(FeederState.IDLE));
-    CommandScheduler.getInstance().setDefaultCommand(Hood.getInstance(), new HoodCommand(HoodState.IDLE));
-    CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), new ShooterCommand(ShooterState.IDLE));
+    CommandScheduler.getInstance().setDefaultCommand(Feeder.getInstance() , FeederCommand .getInstance(FeederState.IDLE));
+    CommandScheduler.getInstance().setDefaultCommand(Hood.getInstance()   , HoodCommand   .getInstance(HoodState.IDLE));
+    CommandScheduler.getInstance().setDefaultCommand(Shooter.getInstance(), ShooterCommand.getInstance(ShooterState.IDLE));
   }
 
   /**
